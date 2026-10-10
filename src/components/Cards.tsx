@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Design.space.regular,
   },
   flatList: {
-    paddingTop: Design.space.regular,
+    paddingVertical: Design.space.regular,
     gap: Design.space.regular,
   },
 });

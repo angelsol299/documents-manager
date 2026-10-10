@@ -1,12 +1,12 @@
-import { Contributor } from "@/types";
-import Feather from "@expo/vector-icons/Feather";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { attachmentsItems, contributorsItems } from "@/libs/card";
+import { Attachments, Contributor } from "@/types";
 import { StyleSheet, Text, View } from "react-native";
 import { Design } from "../namespaces/Design";
+import { CardColumn } from "./CardColumn";
 
 interface CardProps {
   title: string;
-  attachments: string[];
+  attachments: Attachments;
   contributors: Contributor[];
 }
 
@@ -18,25 +18,16 @@ export const Card = ({ title, attachments, contributors }: CardProps) => {
         <Text style={styles.versionText}>{"Version 2.6.16"}</Text>
       </View>
       <View style={styles.content}>
-        <View style={styles.columnContainer}>
-          <View style={styles.contentTitleContainer}>
-            <MaterialIcons name="people-outline" size={16} color="black" />
-            <Text style={styles.contentTitle}>{"Contributors"}</Text>
-          </View>
-          <Text style={styles.contentTextItems}>{"uno"}</Text>
-          <Text style={styles.contentTextItems}>{"dos"}</Text>
-          <Text style={styles.contentTextItems}>{"tres"}</Text>
-          <Text style={styles.contentTextItems}>{"cuatro"}</Text>
-        </View>
-        <View style={styles.columnContainer}>
-          <View style={styles.contentTitleContainer}>
-            <Feather name="link" size={16} color="black" />
-            <Text style={styles.contentTitle}>{"attachments"}</Text>
-          </View>
-          <Text style={styles.contentTextItems}>{"uno"}</Text>
-          <Text style={styles.contentTextItems}>{"dos"}</Text>
-          <Text style={styles.contentTextItems}>{"tres"}</Text>
-        </View>
+        <CardColumn
+          columnTitle={"Contributors"}
+          iconName={"people-outline"}
+          items={contributorsItems(contributors)}
+        />
+        <CardColumn
+          columnTitle={"Attachments"}
+          iconName={"link"}
+          items={attachmentsItems(attachments)}
+        />
       </View>
     </View>
   );
@@ -70,23 +61,5 @@ const styles = StyleSheet.create({
   },
   content: {
     flexDirection: "row",
-  },
-  contentTitleContainer: {
-    flexDirection: "row",
-    gap: Design.space.small,
-  },
-  contentTitle: {
-    fontSize: Design.fontSize.small,
-    fontWeight: Design.fontWeight.bold,
-    color: Design.color.black,
-  },
-  contentTextItems: {
-    fontSize: Design.fontSize.small,
-    color: Design.color.darkGray,
-  },
-  columnContainer: {
-    flex: 1,
-    flexDirection: "column",
-    gap: Design.space.xsmall,
   },
 });

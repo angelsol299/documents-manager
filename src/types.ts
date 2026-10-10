@@ -14,3 +14,10 @@ export type Document = {
 };
 
 export type DocumentsResponse = Document[];
+
+export type Attachments = string[];
+
+export interface ColumnItems {
+  key: string;
+  label: string;
+}
