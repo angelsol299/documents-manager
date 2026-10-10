@@ -1,13 +1,20 @@
+import { Contributor } from "@/types";
 import Feather from "@expo/vector-icons/Feather";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { StyleSheet, Text, View } from "react-native";
 import { Design } from "../namespaces/Design";
 
-export const Card = () => {
+interface CardProps {
+  title: string;
+  attachments: string[];
+  contributors: Contributor[];
+}
+
+export const Card = ({ title, attachments, contributors }: CardProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>{"Hope Rod Rye"}</Text>
+        <Text style={styles.title}>{title}</Text>
         <Text style={styles.versionText}>{"Version 2.6.16"}</Text>
       </View>
       <View style={styles.content}>

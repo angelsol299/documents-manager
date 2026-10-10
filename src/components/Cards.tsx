@@ -1,17 +1,33 @@
 import { useFetchDocuments } from "@/api/useFetchDocuments";
-import { StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { Design } from "../namespaces/Design";
 import { Card } from "./Card";
+
+import { type Document } from "../types";
+
+const renderItem = ({ item }: { item: Document }) => (
+  <Card
+    key={item.ID}
+    title={item.Title}
+    attachments={item.Attachments}
+    contributors={item.Contributors}
+  />
+);
+
+const keyExtractor = ({ ID }: { ID: string }) => `${ID}`;
 
 export const Cards = () => {
   const { data } = useFetchDocuments();
 
-  console.log({ data });
-
   return (
     <View style={styles.container}>
-      <Card />
-      <Card />
+      <FlatList
+        keyExtractor={keyExtractor}
+        data={data}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.flatList}
+        renderItem={renderItem}
+      />
     </View>
   );
 };
@@ -21,5 +37,9 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: Design.space.regular,
     paddingHorizontal: Design.space.regular,
+  },
+  flatList: {
+    paddingTop: Design.space.regular,
+    gap: Design.space.regular,
   },
 });

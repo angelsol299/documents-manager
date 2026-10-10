@@ -1,3 +1,4 @@
+import { DocumentsResponse } from "@/types";
 import { useEffect, useState } from "react";
 
 const URL = "http://localhost:8080/documents";
@@ -5,7 +6,7 @@ const URL = "http://localhost:8080/documents";
 type ResponseProps =
   | { status: "initial" }
   | { status: "loading" }
-  | { status: "success"; data: [] }
+  | { status: "success"; data: DocumentsResponse }
   | { status: "error"; errorMessage: string };
 
 export const useFetchDocuments = () => {

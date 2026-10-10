@@ -2,7 +2,6 @@ import { StyleSheet, View } from "react-native";
 import { Cards } from "../components/Cards";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
-import { Design } from "../namespaces/Design";
 
 export default function HomeScreen() {
   return (
@@ -17,6 +16,5 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: Design.space.regular,
   },
 });
