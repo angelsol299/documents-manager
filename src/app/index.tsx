@@ -1,23 +1,15 @@
 import { StyleSheet, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Cards } from "./components/Cards";
+import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { Design } from "./namespaces/Design";
 
 export default function HomeScreen() {
-  const insets = useSafeAreaInsets();
-
-  const headerContainer = {
-    backgroundColor: Design.color.white,
-    paddingTop: insets.top,
-  };
-
   return (
     <View style={styles.container}>
-      <View style={headerContainer}>
-        <Header />
-      </View>
+      <Header />
       <Cards />
+      <Footer />
     </View>
   );
 }

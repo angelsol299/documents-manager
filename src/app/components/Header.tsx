@@ -1,14 +1,24 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Design } from "../namespaces/Design";
 
 export const Header = () => {
+  const insets = useSafeAreaInsets();
+
+  const headerContainer = {
+    backgroundColor: Design.color.white,
+    paddingTop: insets.top,
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{"Documents"}</Text>
-      <Pressable style={styles.button}>
-        <AntDesign name="bell" size={16} color="black" />
-      </Pressable>
+    <View style={headerContainer}>
+      <View style={styles.container}>
+        <Text style={styles.title}>{"Documents"}</Text>
+        <Pressable style={styles.button}>
+          <AntDesign name="bell" size={16} color="black" />
+        </Pressable>
+      </View>
     </View>
   );
 };

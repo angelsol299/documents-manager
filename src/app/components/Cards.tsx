@@ -13,6 +13,7 @@ export const Cards = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     gap: Design.space.regular,
     paddingHorizontal: Design.space.regular,
   },
