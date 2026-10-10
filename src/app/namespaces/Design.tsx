@@ -3,7 +3,8 @@ export namespace Design {
     black: "#000000",
     white: "#FFFFFF",
     blue: "#3B82F6",
-    gray: "#E0E0E0",
+    lightGray: "#E0E0E0",
+    darkGray: "#898989",
   };
 
   export const fontSize = {
@@ -12,6 +13,7 @@ export namespace Design {
     large: 24,
     regular: 16,
     small: 13,
+    xsmall: 8,
   };
 
   export const fontWeight = {
