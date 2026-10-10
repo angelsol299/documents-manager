@@ -1,8 +1,8 @@
 import { StyleSheet, View } from "react-native";
-import { Cards } from "./components/Cards";
-import { Footer } from "./components/Footer";
-import { Header } from "./components/Header";
-import { Design } from "./namespaces/Design";
+import { Cards } from "../components/Cards";
+import { Footer } from "../components/Footer";
+import { Header } from "../components/Header";
+import { Design } from "../namespaces/Design";
 
 export default function HomeScreen() {
   return (
