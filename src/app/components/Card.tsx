@@ -41,6 +41,11 @@ const styles = StyleSheet.create({
     gap: Design.space.regular,
     padding: Design.space.regular,
     borderRadius: Design.borderRadius,
+    shadowColor: Design.color.darkGray,
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 1 },
+    elevation: 2,
   },
   header: {
     flexDirection: "row",

@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Card } from "./components/Card";
+import { Cards } from "./components/Cards";
 import { Header } from "./components/Header";
 import { Design } from "./namespaces/Design";
 
@@ -17,7 +17,7 @@ export default function HomeScreen() {
       <View style={headerContainer}>
         <Header />
       </View>
-      <Card />
+      <Cards />
     </View>
   );
 }
