@@ -14,6 +14,8 @@ export const useFetchDocuments = () => {
     status: "initial",
   });
 
+  const [refetchCount, setRefetchCount] = useState<number>(0);
+
   useEffect(() => {
     const controller = new AbortController();
     const getData = async () => {
@@ -25,27 +27,30 @@ export const useFetchDocuments = () => {
           throw new Error(`unkown error try again error: ${resp.status}`);
         }
 
-        const res = await resp.json();
+        const result = await resp.json();
 
-        setRequestResponse({ status: "success", data: res });
+        console.log({ result });
+
+        setRequestResponse({ status: "success", data: result });
       } catch (error) {
         const errorMessage =
           error instanceof Error ? error.message : String(error);
 
         setRequestResponse({ status: "error", errorMessage: errorMessage });
-      } finally {
-        console.log("asdasd");
       }
     };
 
     void getData();
     return () => controller.abort();
-  }, []);
+  }, [refetchCount]);
+
+  const refetchFunc = () => setRefetchCount((prev) => prev + 1);
 
   return {
     data: requestResponse.status === "success" ? requestResponse.data : [],
     isLoading: requestResponse.status === "loading",
-    isError:
+    error:
       requestResponse.status === "error" ? requestResponse.errorMessage : "",
+    refetch: refetchFunc,
   };
 };

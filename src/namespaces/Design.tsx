@@ -7,6 +7,7 @@ export namespace Design {
     darkGray: "#898989",
     gray: "#C3C3C3",
     rnGray: "#F2F2F2",
+    red: "#9d2828",
   };
 
   export const fontSize = {

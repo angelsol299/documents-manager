@@ -1,7 +1,7 @@
 import { attachmentsItems, contributorsItems } from "@/libs/card";
 import { Attachments, Contributor } from "@/types";
 import { StyleSheet, Text, View } from "react-native";
-import { Design } from "../namespaces/Design";
+import { Design } from "../../namespaces/Design";
 import { CardColumn } from "./CardColumn";
 
 interface CardProps {
