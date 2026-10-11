@@ -1,4 +1,4 @@
-import { useFetchDocuments } from "@/api/useFetchDocuments";
+import { useDocuments } from "@/context/DocumentsContext";
 import { FlatList, StyleSheet, View } from "react-native";
 import { Design } from "../../namespaces/Design";
 import { Card } from "./Card";
@@ -20,11 +20,7 @@ const renderItem = ({ item }: { item: Document }) => (
 const keyExtractor = ({ ID }: { ID: string }) => `${ID}`;
 
 export const Cards = () => {
-  const { data, isLoading, error, refetch } = useFetchDocuments();
-
-  if (data.length === 0) {
-    return <NoDocuments />;
-  }
+  const { documents, isLoading, error, refetch } = useDocuments();
 
   if (isLoading) {
     return <DocumentsLoading />;
@@ -34,11 +30,15 @@ export const Cards = () => {
     return <DocumentsError error={error} refetch={refetch} />;
   }
 
+  if (documents.length === 0) {
+    return <NoDocuments />;
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
         keyExtractor={keyExtractor}
-        data={data}
+        data={documents}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.flatList}
         renderItem={renderItem}
