@@ -4,6 +4,7 @@ import { Design } from "../namespaces/Design";
 import { Card } from "./Card";
 
 import { type Document } from "../types";
+import { NoDocuments } from "./NoDocuments";
 
 const renderItem = ({ item }: { item: Document }) => (
   <Card
@@ -18,6 +19,10 @@ const keyExtractor = ({ ID }: { ID: string }) => `${ID}`;
 
 export const Cards = () => {
   const { data } = useFetchDocuments();
+
+  if (data.length === 0) {
+    return <NoDocuments />;
+  }
 
   return (
     <View style={styles.container}>
