@@ -1,5 +1,10 @@
+import { DocumentsProvider } from "@/context/DocumentsContext";
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <DocumentsProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </DocumentsProvider>
+  );
 }

@@ -1,4 +1,4 @@
-import { useFetchDocuments } from "@/api/useFetchDocuments";
+import { useDocuments } from "@/context/DocumentsContext";
 import { FlatList, StyleSheet, View } from "react-native";
 import { Design } from "../../namespaces/Design";
 import { Card } from "./Card";
@@ -20,7 +20,7 @@ const renderItem = ({ item }: { item: Document }) => (
 const keyExtractor = ({ ID }: { ID: string }) => `${ID}`;
 
 export const Cards = () => {
-  const { data, isLoading, error, refetch } = useFetchDocuments();
+  const { data, isLoading, error, refetch } = useDocuments();
 
   if (isLoading) {
     return <DocumentsLoading />;
