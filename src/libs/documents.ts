@@ -1,4 +1,5 @@
 import { FormStateProps } from "@/components/Modal";
+import { Document } from "../types";
 
 export const documentFormat = (formState: FormStateProps) => {
   const DateValue = Date.now();
@@ -12,4 +13,12 @@ export const documentFormat = (formState: FormStateProps) => {
     Attachments: ["uno", "dos"],
     Contributors: [{ ID: `contributor-${DateValue}`, Name: "Angel" }],
   };
+};
+
+export const sortDocumentsByMostRecentDate = (data: Document[]): Document[] => {
+  const sortedData = [...data];
+
+  sortedData.sort((a, b) => Date.parse(b.CreatedAt) - Date.parse(a.CreatedAt));
+
+  return sortedData;
 };

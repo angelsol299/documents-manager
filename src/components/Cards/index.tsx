@@ -3,6 +3,7 @@ import { FlatList, StyleSheet, View } from "react-native";
 import { Design } from "../../namespaces/Design";
 import { Card } from "./Card";
 
+import { sortDocumentsByMostRecentDate } from "@/libs/documents";
 import { type Document } from "../../types";
 import { DocumentsError } from "./DocumentsError";
 import { DocumentsLoading } from "./DocumentsLoading";
@@ -29,8 +30,9 @@ export const Cards = () => {
   if (error.length > 0) {
     return <DocumentsError error={error} refetch={refetch} />;
   }
+  const sortedData = sortDocumentsByMostRecentDate(data);
 
-  if (data.length === 0) {
+  if (sortedData.length === 0) {
     return <NoDocuments />;
   }
 
@@ -38,7 +40,7 @@ export const Cards = () => {
     <View style={styles.container}>
       <FlatList
         keyExtractor={keyExtractor}
-        data={data}
+        data={sortedData}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.flatList}
         renderItem={renderItem}
