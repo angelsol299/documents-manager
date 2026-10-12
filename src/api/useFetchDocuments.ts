@@ -1,7 +1,7 @@
 import { DocumentsResponse } from "@/types";
 import { useEffect, useState } from "react";
 
-const URL = "http://localhost:8080/documents";
+const BASE_URL = "http://localhost:8080";
 
 type ResponseProps =
   | { status: "initial" }
@@ -21,15 +21,15 @@ export const useFetchDocuments = () => {
     const getData = async () => {
       try {
         setRequestResponse({ status: "loading" });
-        const resp = await fetch(URL, { signal: controller.signal });
+        const resp = await fetch(`${BASE_URL}/documents`, {
+          signal: controller.signal,
+        });
 
         if (!resp.ok) {
           throw new Error(`unkown error try again error: ${resp.status}`);
         }
 
         const result = await resp.json();
-
-        console.log({ result });
 
         setRequestResponse({ status: "success", data: result });
       } catch (error) {

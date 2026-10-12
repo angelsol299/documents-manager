@@ -6,7 +6,7 @@ export type Contributor = {
 export type Document = {
   ID: string;
   CreatedAt: string;
-  UpdatedAt: string;
+  UpdatedAt?: string;
   Title: string;
   Attachments: string[];
   Contributors: Contributor[];

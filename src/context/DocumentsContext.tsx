@@ -1,14 +1,33 @@
 import { useFetchDocuments } from "@/api/useFetchDocuments";
-import { createContext, ReactNode, useContext } from "react";
+import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 
-type DocumentsContextValue = ReturnType<typeof useFetchDocuments>;
+import { Document } from "../types";
+
+type AddDocument = { addDocument: (document: Document) => void };
+
+type DocumentsContextValue = ReturnType<typeof useFetchDocuments> & AddDocument;
 
 const DocumentsContext = createContext<DocumentsContextValue | null>(null);
 
 export const DocumentsProvider = ({ children }: { children: ReactNode }) => {
-  const documents = useFetchDocuments();
+  const { data, isLoading, error, refetch } = useFetchDocuments();
+  const [localDocument, setLocalDocument] = useState<Document[]>([]);
 
-  return <DocumentsContext value={documents}>{children}</DocumentsContext>;
+  const addDocument = (document: Document) =>
+    setLocalDocument((prev) => [document, ...prev]);
+
+  const value = useMemo(
+    () => ({
+      data: [...localDocument, ...data],
+      isLoading,
+      error,
+      refetch,
+      addDocument,
+    }),
+    [localDocument, data, isLoading, error, refetch, addDocument],
+  );
+
+  return <DocumentsContext value={value}>{children}</DocumentsContext>;
 };
 
 export const useDocuments = () => {

@@ -1,6 +1,9 @@
+import { useDocuments } from "@/context/DocumentsContext";
+import { documentFormat } from "@/libs/document";
 import { Design } from "@/namespaces/Design";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
+import { useState } from "react";
 import {
   Modal as ModalComponent,
   Pressable,
@@ -17,13 +20,33 @@ interface ModalProps {
   onPressHandle: (val: boolean) => () => void;
 }
 
+export interface FormStateProps {
+  name: string;
+  version: string;
+}
+
 export const Modal = ({ visible, onPressHandle }: ModalProps) => {
   const insets = useSafeAreaInsets();
+  const { addDocument } = useDocuments();
+  const [formState, setFormState] = useState<FormStateProps>({
+    name: "",
+    version: "",
+  });
 
   const buttonContainerStyles = [
     styles.buttonContainer,
     { paddingBottom: insets.bottom },
   ];
+
+  const onChangeName = (name: string) =>
+    setFormState((prev) => ({ name, version: prev.version }));
+  const onChangeVersion = (version: string) =>
+    setFormState((prev) => ({ name: prev.name, version }));
+
+  const onSubmit = () => {
+    addDocument(documentFormat(formState));
+    onPressHandle(false)();
+  };
 
   return (
     <ModalComponent transparent animationType="fade" visible={visible}>
@@ -42,12 +65,20 @@ export const Modal = ({ visible, onPressHandle }: ModalProps) => {
           <Text style={styles.text}>{"Document information"}</Text>
           <View style={styles.section}>
             <Text style={styles.text}>{"Name"}</Text>
-            <TextInput style={styles.textInput} value="hello" />
+            <TextInput
+              style={styles.textInput}
+              value={formState.name}
+              onChangeText={onChangeName}
+            />
           </View>
 
           <View style={styles.section}>
             <Text style={styles.text}>{"Version"}</Text>
-            <TextInput style={styles.textInput} value="hello" />
+            <TextInput
+              style={styles.textInput}
+              value={formState.version}
+              onChangeText={onChangeVersion}
+            />
           </View>
           <View style={styles.section}>
             <Text style={styles.text}>{"File"}</Text>
@@ -58,7 +89,7 @@ export const Modal = ({ visible, onPressHandle }: ModalProps) => {
           </View>
         </View>
         <View style={buttonContainerStyles}>
-          <Button title={"Submit"} onPress={() => {}} />
+          <Button title={"Submit"} onPress={onSubmit} />
         </View>
       </View>
     </ModalComponent>
