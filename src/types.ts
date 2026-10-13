@@ -21,3 +21,5 @@ export interface ColumnItems {
   key: string;
   label: string;
 }
+
+export type LayoutProps = "list" | "grid";

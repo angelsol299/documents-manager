@@ -6,16 +6,22 @@ import { CardColumn } from "./CardColumn";
 
 interface CardProps {
   title: string;
+  version: string;
   attachments: Attachments;
   contributors: Contributor[];
 }
 
-export const Card = ({ title, attachments, contributors }: CardProps) => {
+export const CardList = ({
+  title,
+  version,
+  attachments,
+  contributors,
+}: CardProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.versionText}>{"Version 2.6.16"}</Text>
+        <Text style={styles.versionText}>{`Version ${version}`}</Text>
       </View>
       <View style={styles.content}>
         <CardColumn

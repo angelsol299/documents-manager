@@ -1,26 +1,31 @@
 import { useDocuments } from "@/context/DocumentsContext";
 import { FlatList, StyleSheet, View } from "react-native";
 import { Design } from "../../namespaces/Design";
-import { Card } from "./Card";
+import { CardList } from "./CardList";
 
 import { sortDocumentsByMostRecentDate } from "@/libs/documents";
-import { type Document } from "../../types";
+import { LayoutProps, type Document } from "../../types";
+import { CardGrid } from "./CardGrid";
 import { DocumentsError } from "./DocumentsError";
 import { DocumentsLoading } from "./DocumentsLoading";
 import { NoDocuments } from "./NoDocuments";
 
-const renderItem = ({ item }: { item: Document }) => (
-  <Card
+const renderItemList = ({ item }: { item: Document }) => (
+  <CardList
     key={item.ID}
     title={item.Title}
+    version={item.Version}
     attachments={item.Attachments}
     contributors={item.Contributors}
   />
 );
+const renderItemGrid = ({ item }: { item: Document }) => (
+  <CardGrid key={item.ID} title={item.Title} version={item.Version} />
+);
 
 const keyExtractor = ({ ID }: { ID: string }) => `${ID}`;
 
-export const Cards = () => {
+export const Cards = ({ layout }: { layout: LayoutProps }) => {
   const { data, isLoading, error, refetch } = useDocuments();
 
   if (isLoading) {
@@ -36,14 +41,19 @@ export const Cards = () => {
     return <NoDocuments />;
   }
 
+  const isGrid = layout === "grid";
+
   return (
     <View style={styles.container}>
       <FlatList
         keyExtractor={keyExtractor}
+        key={isGrid ? "grid" : "list"}
         data={sortedData}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.flatList}
-        renderItem={renderItem}
+        columnWrapperStyle={isGrid ? styles.gridRow : null}
+        renderItem={isGrid ? renderItemGrid : renderItemList}
+        numColumns={isGrid ? 2 : 1}
       />
     </View>
   );
@@ -58,5 +68,9 @@ const styles = StyleSheet.create({
   flatList: {
     paddingVertical: Design.space.regular,
     gap: Design.space.regular,
+    justifyContent: "space-between",
+  },
+  gridRow: {
+    justifyContent: "space-between",
   },
 });
