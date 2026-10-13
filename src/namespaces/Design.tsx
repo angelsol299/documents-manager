@@ -32,5 +32,7 @@ export namespace Design {
     xsmall: 4,
   };
 
+  export const lineHeight = 12;
+
   export const borderRadius = 8;
 }
