@@ -7,10 +7,15 @@ interface ButtonProps {
   title: string;
   onPress: () => void;
   iconName?: ComponentProps<typeof Entypo>["name"];
+  disabled: boolean;
 }
 
-export const Button = ({ title, iconName, onPress }: ButtonProps) => (
-  <Pressable style={styles.container} onPress={onPress}>
+export const Button = ({ title, iconName, onPress, disabled }: ButtonProps) => (
+  <Pressable
+    style={[styles.container, { opacity: disabled ? 0.5 : 1 }]}
+    onPress={onPress}
+    disabled={disabled}
+  >
     {iconName && (
       <Entypo name={iconName} size={20} color={Design.color.white} />
     )}

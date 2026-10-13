@@ -10,7 +10,7 @@ export const documentFormat = (formState: FormStateProps) => {
     Version: formState.version,
     ID: `id-${DateValue}`,
     CreatedAt: `${createAt}`,
-    Attachments: ["uno", "dos"],
+    Attachments: formState.attachments,
     Contributors: [{ ID: `contributor-${DateValue}`, Name: "Angel" }],
   };
 };

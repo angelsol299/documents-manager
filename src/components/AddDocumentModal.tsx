@@ -1,5 +1,6 @@
 import { useDocuments } from "@/context/DocumentsContext";
 import { documentFormat } from "@/libs/documents";
+import { getDocumentAsync } from "@/libs/getDocumentsAsync";
 import { Design } from "@/namespaces/Design";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Feather from "@expo/vector-icons/Feather";
@@ -23,15 +24,27 @@ interface ModalProps {
 export interface FormStateProps {
   name: string;
   version: string;
+  attachments: string[];
 }
 
 export const AddDocumentModal = ({ visible, onPressHandle }: ModalProps) => {
   const insets = useSafeAreaInsets();
   const { addDocument } = useDocuments();
+
   const [formState, setFormState] = useState<FormStateProps>({
     name: "",
     version: "",
+    attachments: [],
   });
+
+  const getDocuments = async () => {
+    const attachments = await getDocumentAsync();
+
+    setFormState((prev) => ({
+      ...prev,
+      attachments: attachments,
+    }));
+  };
 
   const buttonContainerStyles = [
     styles.buttonContainer,
@@ -39,15 +52,24 @@ export const AddDocumentModal = ({ visible, onPressHandle }: ModalProps) => {
   ];
 
   const onChangeName = (name: string) =>
-    setFormState((prev) => ({ name, version: prev.version }));
+    setFormState((prev) => ({
+      ...prev,
+      name,
+    }));
   const onChangeVersion = (version: string) =>
-    setFormState((prev) => ({ name: prev.name, version }));
+    setFormState((prev) => ({
+      ...prev,
+      version,
+    }));
 
   const onSubmit = () => {
     addDocument(documentFormat(formState));
     onPressHandle(false)();
-    setFormState({ name: "", version: "" });
+    setFormState({ name: "", version: "", attachments: [] });
   };
+
+  const isButtonEnabled =
+    formState.name.length > 0 && formState.version.length > 0;
 
   return (
     <ModalComponent transparent animationType="fade" visible={visible}>
@@ -81,16 +103,24 @@ export const AddDocumentModal = ({ visible, onPressHandle }: ModalProps) => {
               onChangeText={onChangeVersion}
             />
           </View>
-          <View style={styles.section}>
+          <Pressable style={styles.section} onPress={getDocuments}>
             <Text style={styles.text}>{"File"}</Text>
             <View style={styles.fileButton}>
               <Feather name="file-text" size={16} color={Design.color.blue} />
               <Text style={styles.fileButtonText}>{"Choose file"}</Text>
             </View>
-          </View>
+          </Pressable>
+          {formState.attachments.length > 0 &&
+            formState.attachments.map((doc) => {
+              return <Text key={doc}>{doc}</Text>;
+            })}
         </View>
         <View style={buttonContainerStyles}>
-          <Button title={"Submit"} onPress={onSubmit} />
+          <Button
+            title={"Submit"}
+            onPress={onSubmit}
+            disabled={!isButtonEnabled}
+          />
         </View>
       </View>
     </ModalComponent>

@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
+const SOCKET_URL = "ws://localhost:8080";
+
 export const useSocket = () => {
   const [countNotifications, setCountNotifications] = useState(0);
 
   const triggerResetCounter = () => setCountNotifications(0);
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8080/notifications");
+    const ws = new WebSocket(`${SOCKET_URL}/notifications`);
 
     ws.onopen = () => console.log("Connection Open");
     ws.onmessage = () => {
