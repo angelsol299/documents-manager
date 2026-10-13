@@ -54,4 +54,48 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
 # documents-manager
+
+# Libraries/packages disclosure
+
+## State management
+
+Redux, Zustand and Context API were consider to be used as state management tools. I decided to go with Context API since that one comes out of the box and does not need further installation/mantainability. The size of the app is very small that is not worth it adding a 3rd party state management tool.
+
+## documents picker
+
+I used expo-document-picker since it is the official module to implement a documents picker and I did not consider other libraries/packages.
+
+## Styling / Design system
+
+I went for bare styling directly into the components with StyleSheet so not 3rd party library was used, I added a Design namespace to use it as a design system.
+
+## Icons
+
+I used @expo/vector-icons since this is the official module to consume icons and I did not consider other libraries/packages.
+
+## API calls
+
+I used the native fetch since it was only one GET call that was needed and the native fetch fulfilled the needs of this project.
+
+## Testing
+
+I did not have enough time to implement any testing, I would have gone for adding unit test of the following functions;
+
+- documentFormat
+- sortDocumentsByMostRecentDate
+- sortDocumentsByOldestDate
+- contributorsItems
+- sortDocumentsByMostRecentDate
+- getDocumentAsync
+
+I would also have added Component tests on:
+
+- Cards
+- AddDocumentModal
+- FilterModal
+- Header
+- Footer
+- Card
+- FilterAndLayout
