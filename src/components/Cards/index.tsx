@@ -3,8 +3,11 @@ import { FlatList, StyleSheet, View } from "react-native";
 import { Design } from "../../namespaces/Design";
 import { CardList } from "./CardList";
 
-import { sortDocumentsByMostRecentDate } from "@/libs/documents";
-import { LayoutProps, type Document } from "../../types";
+import {
+  sortDocumentsByMostRecentDate,
+  sortDocumentsByOldestDate,
+} from "@/libs/documents";
+import { FilteredDataProps, LayoutProps, type Document } from "../../types";
 import { CardGrid } from "./CardGrid";
 import { DocumentsError } from "./DocumentsError";
 import { DocumentsLoading } from "./DocumentsLoading";
@@ -25,7 +28,13 @@ const renderItemGrid = ({ item }: { item: Document }) => (
 
 const keyExtractor = ({ ID }: { ID: string }) => `${ID}`;
 
-export const Cards = ({ layout }: { layout: LayoutProps }) => {
+export const Cards = ({
+  layout,
+  filteredData,
+}: {
+  layout: LayoutProps;
+  filteredData: FilteredDataProps;
+}) => {
   const { data, isLoading, error, refetch } = useDocuments();
 
   if (isLoading) {
@@ -35,7 +44,10 @@ export const Cards = ({ layout }: { layout: LayoutProps }) => {
   if (error.length > 0) {
     return <DocumentsError error={error} refetch={refetch} />;
   }
-  const sortedData = sortDocumentsByMostRecentDate(data);
+  const sortedData =
+    filteredData === "latest"
+      ? sortDocumentsByMostRecentDate(data)
+      : sortDocumentsByOldestDate(data);
 
   if (sortedData.length === 0) {
     return <NoDocuments />;

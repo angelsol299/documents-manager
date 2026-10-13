@@ -1,10 +1,24 @@
 import { Design } from "@/namespaces/Design";
+import { FilteredDataProps, LayoutProps } from "@/types";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Dispatch, SetStateAction } from "react";
+import { Pressable, StyleSheet, View } from "react-native";
+import { Filter } from "./Filter";
 
-export const FilterAndLayout = ({ layout, handleLayout }) => {
+interface FilterAndLayoutProps {
+  layout: LayoutProps;
+  handleLayout: (value: LayoutProps) => () => void;
+  filteredData: FilteredDataProps;
+  onChangeSort: Dispatch<SetStateAction<FilteredDataProps>>;
+}
+
+export const FilterAndLayout = ({
+  layout,
+  handleLayout,
+  filteredData,
+  onChangeSort,
+}: FilterAndLayoutProps) => {
   const listIconColor =
     layout === "list" ? Design.color.blue : Design.color.darkGray;
   const gridIconColor =
@@ -12,24 +26,7 @@ export const FilterAndLayout = ({ layout, handleLayout }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.filter}>
-        <View>
-          <MaterialCommunityIcons
-            name="triangle-outline"
-            size={8}
-            color="black"
-          />
-          <MaterialCommunityIcons
-            name="triangle-down-outline"
-            size={8}
-            color="black"
-          />
-        </View>
-        <Text>{"Sort by"}</Text>
-        <View style={styles.chevron}>
-          <AntDesign name="down" size={10} color="black" />
-        </View>
-      </View>
+      <Filter filteredData={filteredData} onChangeSort={onChangeSort} />
 
       <View style={styles.layout}>
         <Pressable

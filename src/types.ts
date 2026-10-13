@@ -23,3 +23,5 @@ export interface ColumnItems {
 }
 
 export type LayoutProps = "list" | "grid";
+
+export type FilteredDataProps = "latest" | "oldest";

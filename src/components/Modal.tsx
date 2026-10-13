@@ -46,6 +46,7 @@ export const Modal = ({ visible, onPressHandle }: ModalProps) => {
   const onSubmit = () => {
     addDocument(documentFormat(formState));
     onPressHandle(false)();
+    setFormState({ name: "", version: "" });
   };
 
   return (

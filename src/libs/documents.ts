@@ -22,3 +22,11 @@ export const sortDocumentsByMostRecentDate = (data: Document[]): Document[] => {
 
   return sortedData;
 };
+
+export const sortDocumentsByOldestDate = (data: Document[]): Document[] => {
+  const sortedData = [...data];
+
+  sortedData.sort((a, b) => Date.parse(a.CreatedAt) - Date.parse(b.CreatedAt));
+
+  return sortedData;
+};
