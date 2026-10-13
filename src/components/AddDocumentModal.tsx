@@ -25,7 +25,7 @@ export interface FormStateProps {
   version: string;
 }
 
-export const Modal = ({ visible, onPressHandle }: ModalProps) => {
+export const AddDocumentModal = ({ visible, onPressHandle }: ModalProps) => {
   const insets = useSafeAreaInsets();
   const { addDocument } = useDocuments();
   const [formState, setFormState] = useState<FormStateProps>({

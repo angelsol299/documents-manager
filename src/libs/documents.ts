@@ -1,4 +1,4 @@
-import { FormStateProps } from "@/components/Modal";
+import { FormStateProps } from "@/components/AddDocumentModal";
 import { Document } from "../types";
 
 export const documentFormat = (formState: FormStateProps) => {

@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Design } from "../namespaces/Design";
+import { AddDocumentModal } from "./AddDocumentModal";
 import { Button } from "./Button";
-import { Modal } from "./Modal";
 
 export const Footer = () => {
   const insets = useSafeAreaInsets();
@@ -26,9 +26,7 @@ export const Footer = () => {
         iconName={"plus"}
         onPress={onPressHandle(true)}
       />
-      <Modal visible={isVisible} onPressHandle={onPressHandle} />
+      <AddDocumentModal visible={isVisible} onPressHandle={onPressHandle} />
     </View>
   );
 };
-
-const styles = StyleSheet.create({});
