@@ -99,3 +99,9 @@ I would also have added Component tests on:
 - Footer
 - Card
 - FilterAndLayout
+
+## AI disclosure
+
+AI assisted tools were NOT used to write any code, NEITHER code prediction tools were used. AI was used only at the beginning of this project to remove boiler plate code/files/assets and to start with a minimal project.
+
+Google and official documentations were mostly used to implemented methods/libraries I was not familiar with or did not use before.
